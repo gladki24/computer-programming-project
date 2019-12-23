@@ -1,3 +1,5 @@
 # Project exclude paths
 /cmake-build-min-gw/
 /cmake-build-wsl/
+/cmake-build-debug/
+/.idea/
