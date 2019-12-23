@@ -9,7 +9,7 @@
 #include "single_search.h"
 #include "iteration_search.h"
 #include "pair_search.h"
-#include "recursive_search.h"
+#include "recursive_single_search.h"
 
 #define PROJEKT_22_PROJEKT_22_H
 

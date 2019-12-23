@@ -12,14 +12,17 @@ typedef long long int lli;
 template<class TNumber>
 class SearchAlgorithmBase {
 public:
-//    virtual SearchResult<TNumber> getSearchResult() = 0;
+    SearchAlgorithmBase() = delete;
+    SearchAlgorithmBase(const TNumber* numberArray, uli);
+
+    SearchAlgorithmBase(const SearchAlgorithmBase& searchAlgorithmBase) = default;
+    SearchAlgorithmBase& operator=(const SearchAlgorithmBase& searchAlgorithmBase) = default;
+
+    // TODO   virtual SearchResult<TNumber> getSearchResult() = 0;
     virtual TNumber* getMax() = 0;
     virtual TNumber* getMin() = 0;
     virtual lli getMaxPosition() = 0;
     virtual lli getMinPosition() = 0;
-
-    SearchAlgorithmBase() = delete;
-    SearchAlgorithmBase(const TNumber* numberArray, uli);
 
 protected:
     const TNumber* getNumberArray();

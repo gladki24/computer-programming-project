@@ -1,2 +1,6 @@
 # Default ignored files
 /workspace.xml
+
+cmake-build-debug/
+cmake-build-min-gw/
+cmake-build-wsl/

@@ -9,7 +9,12 @@
 template<class TNumber>
 class SingleSearch : public SearchAlgorithmBase<TNumber> {
 public:
+    SingleSearch() = delete;
     SingleSearch(const TNumber* array, uli size);
+
+    SingleSearch(const SingleSearch& singleSearch) = default;
+    SingleSearch& operator=(const SingleSearch& singleSearch) = default;
+
     TNumber* getMax() override;
     TNumber* getMin() override;
     lli getMaxPosition() override;

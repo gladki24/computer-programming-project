@@ -51,7 +51,7 @@ lli SingleSearch<TNumber>::getMaxPosition() {
     TNumber* minValue = nullptr;
     uli maxValuePosition = -1;
     if (size == 0) {
-        maxValuePosition;
+        return maxValuePosition;
     }
 
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
@@ -72,7 +72,7 @@ lli SingleSearch<TNumber>::getMinPosition() {
     TNumber* minValue = nullptr;
     uli minValuePosition = -1;
     if (size == 0) {
-        minValuePosition;
+        return minValuePosition;
     }
 
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();

@@ -59,5 +59,28 @@ void printTestHeader(const std::string& header) {
     std::cout << std::endl << "****** " << header << " ******" << std::endl;
 }
 
+template<class TArray>
+void testBorderValues(TArray* array, SearchAlgorithmBase<TArray>* searchAlgorithm) {
+    array[0] = -100;
+    lli resultPosition = searchAlgorithm->getMinPosition();
+    TArray* resultValue = searchAlgorithm->getMin();
+    bool assertPositionResult = resultPosition == 0;
+    bool assertValueResult = *resultValue == -100;
+    std::cout << "At 0 index should be min value: " << assertPositionResult << std::endl;
+    std::cout << "Min value should be -100: " << assertValueResult << std::endl;
+
+    delete resultValue;
+
+    array[0] = 1001;
+    resultPosition = searchAlgorithm->getMaxPosition();
+    resultValue = searchAlgorithm->getMax();
+    assertPositionResult = resultPosition == 0;
+    assertValueResult = *resultValue == 1001;
+    std::cout << "At 0 index should be max value: " << assertPositionResult << std::endl;
+    std::cout << "Max value should be 1001: " << assertValueResult << std::endl;
+
+    delete resultValue;
+}
+
 
 #endif //PROJEKT_22_PROJEKT_22_TESTS_H
