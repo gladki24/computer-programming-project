@@ -14,7 +14,7 @@
 template<class TNumber>
 class SearchResult {
 public:
-    SearchResult() = delete;
+    SearchResult();
     SearchResult& operator=(const SearchResult&);
     SearchResult(const SearchResult&);
     SearchResult(
@@ -30,8 +30,8 @@ public:
     lli getMaxPosition() const;
     lli getMinPosition() const;
 
-    template<class TN>
-    friend std::ostream& operator<<(std::ostream& ostream, const SearchResult<TN>& searchResult);
+    template<class UNumber>
+    friend std::ostream& operator<<(std::ostream& ostream, const SearchResult<UNumber>& searchResult);
 
 private:
     TNumber* _maxValue;
@@ -39,5 +39,13 @@ private:
     lli _maxPosition;
     lli _minPosition;
 };
+
+template<class TNumber>
+std::ostream& operator<<(std::ostream& ostream, const SearchResult<TNumber>& searchResult) {
+    ostream << "Max: " << *searchResult.getMaxValue() << " at: " << searchResult.getMaxPosition();
+    ostream << ", min: " << *searchResult.getMinValue() << " at: " << searchResult.getMinPosition() << std::endl;
+    return ostream;
+}
+
 
 #endif //PROJEKT_22_SHARED_H

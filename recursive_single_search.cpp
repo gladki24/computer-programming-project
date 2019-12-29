@@ -119,14 +119,23 @@ SearchResult<TNumber> RecursiveSingleSearch<TNumber>::_recursiveGetResult(lli &i
     lli maxValuePosition = searchResult.getMaxPosition();
 
     if (minValue == nullptr || *minValue > array[index]) {
+        delete minValue;
+
         minValuePosition = index;
+        minValue = new TNumber(array[index]);
         searchResult = SearchResult<TNumber>(maxValue, minValue, maxValuePosition, minValuePosition);
     }
 
     if (maxValue == nullptr || *maxValue < array[index]) {
+        delete maxValue;
+
         maxValuePosition = index;
+        maxValue = new TNumber(array[index]);
         searchResult = SearchResult<TNumber>(maxValue, minValue, maxValuePosition, minValuePosition);
     }
+
+    delete minValue;
+    delete maxValue;
 
     if (index == 0) {
         return searchResult;

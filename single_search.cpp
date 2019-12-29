@@ -113,7 +113,10 @@ SearchResult<TNumber> SingleSearch<TNumber>::getResult() const {
             maxValuePosition = i;
         }
     }
-    return SearchResult<TNumber>(maxValue, minValue, maxValuePosition, minValuePosition);
+    SearchResult<TNumber> result = SearchResult<TNumber>(maxValue, minValue, maxValuePosition, minValuePosition);
+    delete maxValue;
+    delete minValue;
+    return result;
 }
 
 template class SingleSearch<float>;

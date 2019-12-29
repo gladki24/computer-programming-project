@@ -82,5 +82,10 @@ void testBorderValues(TArray* array, SearchAlgorithmBase<TArray>* searchAlgorith
     delete resultValue;
 }
 
+template<class TArray>
+void testGetResult(SearchAlgorithmBase<TArray>* searchAlgorithm) {
+    SearchResult<TArray> result = searchAlgorithm->getResult();
+    std::cout << result;
+}
 
 #endif //PROJEKT_22_PROJEKT_22_TESTS_H

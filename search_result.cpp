@@ -4,17 +4,19 @@
 
 #include "search_result.h"
 
-// SearchResult class
+template<class TNumber>
+SearchResult<TNumber>::SearchResult(): _maxValue(nullptr), _minValue(nullptr), _maxPosition(-1), _minPosition(-1) {}
+
 template<class TNumber>
 SearchResult<TNumber>::SearchResult(
         TNumber* maxValue,
         TNumber* minValue,
         lli maxPositionsList,
         lli minPositionsList
-): _maxValue(maxValue),
-   _minValue(minValue),
-   _maxPosition(maxPositionsList),
-   _minPosition(minPositionsList) {}
+): _maxPosition(maxPositionsList), _minPosition(minPositionsList) {
+    _maxValue = maxValue == nullptr ? nullptr : new TNumber(*maxValue);
+    _minValue = minValue == nullptr ? nullptr : new TNumber(*minValue);
+}
 
 template<class TNumber>
 SearchResult<TNumber>::~SearchResult() {
@@ -27,11 +29,8 @@ SearchResult<TNumber>::SearchResult(const SearchResult& searchResult) {
     _minPosition = searchResult._minPosition;
     _maxPosition = searchResult._maxPosition;
 
-    delete _maxValue;
-    delete _minValue;
-
-    _maxValue = new TNumber(*searchResult._maxValue);
-    _minValue = new TNumber(*searchResult._minValue);
+    _maxValue = searchResult._maxValue == nullptr ? nullptr : new TNumber(*searchResult._maxValue);
+    _minValue = searchResult._minValue == nullptr ? nullptr : new TNumber(*searchResult._minValue);
 }
 
 template<class TNumber>
@@ -42,8 +41,8 @@ SearchResult<TNumber>& SearchResult<TNumber>::operator=(const SearchResult& sear
     delete _maxValue;
     delete _minValue;
 
-    _maxValue = new TNumber(*searchResult._maxValue);
-    _minValue = new TNumber(*searchResult._minValue);
+    _maxValue = searchResult._maxValue == nullptr ? nullptr : new TNumber(*searchResult._maxValue);
+    _minValue = searchResult._minValue == nullptr ? nullptr : new TNumber(*searchResult._minValue);
 
     return *this;
 }
@@ -66,13 +65,6 @@ lli SearchResult<TNumber>::getMaxPosition() const {
 template<class TNumber>
 lli SearchResult<TNumber>::getMinPosition() const {
     return _minPosition;
-}
-
-template<class TNumber>
-std::ostream& operator<<(std::ostream& ostream, const SearchResult<TNumber>& searchResult) {
-    ostream << "Max: " << searchResult.getMaxValue() << "at: " << searchResult.getMaxPosition();
-    ostream << " min: " << searchResult.getMinValue() << "at: " << searchResult.getMinPosition();
-    return ostream;
 }
 
 template class SearchResult<float>;

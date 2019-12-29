@@ -5,7 +5,7 @@
 
 using namespace project22;
 
-const int ARRAY_SIZE = 1000;
+const int ARRAY_SIZE = 5;
 
 int main() {
     srand(time(nullptr));
@@ -15,6 +15,7 @@ int main() {
     int* arrayA = generateArray<int>(sizeA);
     SingleSearch<int> singleSearch = SingleSearch<int>(arrayA, sizeA);
     comparePositionAndValue<int>(arrayA, &singleSearch);
+    testGetResult<int>(&singleSearch);
 
     printTestHeader("Przegladanie kolejnych elementow rekurencyjnie");
     int sizeB = ARRAY_SIZE;
@@ -23,6 +24,7 @@ int main() {
 
     comparePositionAndValue<int>(arrayB, &recursiveSingleSearch);
     testBorderValues<int>(arrayB, &recursiveSingleSearch);
+    testGetResult<int>(&recursiveSingleSearch);
 
     printTestHeader("Przegladanie kolejnych elementow parami iteracyjnie");
 
