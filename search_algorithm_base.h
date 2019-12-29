@@ -6,9 +6,6 @@
 #include "search_result.h"
 #define PROJEKT_22_SEARCH_ALGORITHM_BASE_H
 
-typedef unsigned long int uli;
-typedef long long int lli;
-
 template<class TNumber>
 class SearchAlgorithmBase {
 public:
@@ -18,15 +15,15 @@ public:
     SearchAlgorithmBase(const SearchAlgorithmBase& searchAlgorithmBase) = default;
     SearchAlgorithmBase& operator=(const SearchAlgorithmBase& searchAlgorithmBase) = default;
 
-    // TODO   virtual SearchResult<TNumber> getSearchResult() = 0;
-    virtual TNumber* getMax() = 0;
-    virtual TNumber* getMin() = 0;
-    virtual lli getMaxPosition() = 0;
-    virtual lli getMinPosition() = 0;
+    virtual TNumber* getMax() const = 0;
+    virtual TNumber* getMin() const = 0;
+    virtual lli getMaxPosition() const = 0;
+    virtual lli getMinPosition() const = 0;
+    virtual SearchResult<TNumber> getResult() const = 0;
 
 protected:
-    const TNumber* getNumberArray();
-    const uli getNumberArraySize();
+    const TNumber* getNumberArray() const;
+    const uli getNumberArraySize() const;
 
 private:
     const TNumber* _numberArray;

@@ -8,7 +8,7 @@ template<class TNumber>
 RecursiveSingleSearch<TNumber>::RecursiveSingleSearch(const TNumber *array, uli size): SearchAlgorithmBase<TNumber>(array, size) {}
 
 template<class TNumber>
-TNumber* RecursiveSingleSearch<TNumber>::getMax() {
+TNumber* RecursiveSingleSearch<TNumber>::getMax() const {
     lli index = SearchAlgorithmBase<TNumber>::getNumberArraySize() - 1;
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
 
@@ -16,7 +16,7 @@ TNumber* RecursiveSingleSearch<TNumber>::getMax() {
 }
 
 template<class TNumber>
-TNumber* RecursiveSingleSearch<TNumber>::getMin() {
+TNumber* RecursiveSingleSearch<TNumber>::getMin() const {
     lli index = SearchAlgorithmBase<TNumber>::getNumberArraySize() - 1;
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
 
@@ -24,7 +24,7 @@ TNumber* RecursiveSingleSearch<TNumber>::getMin() {
 }
 
 template<class TNumber>
-lli RecursiveSingleSearch<TNumber>::getMaxPosition() {
+lli RecursiveSingleSearch<TNumber>::getMaxPosition() const {
     lli index = SearchAlgorithmBase<TNumber>::getNumberArraySize() - 1;
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
 
@@ -32,7 +32,7 @@ lli RecursiveSingleSearch<TNumber>::getMaxPosition() {
 }
 
 template<class TNumber>
-lli RecursiveSingleSearch<TNumber>::getMinPosition() {
+lli RecursiveSingleSearch<TNumber>::getMinPosition() const {
     lli index = SearchAlgorithmBase<TNumber>::getNumberArraySize() - 1;
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
 
@@ -40,7 +40,16 @@ lli RecursiveSingleSearch<TNumber>::getMinPosition() {
 }
 
 template<class TNumber>
-TNumber* RecursiveSingleSearch<TNumber>::_recursiveGetMax(lli& index, const TNumber* array, TNumber* result) {
+SearchResult<TNumber> RecursiveSingleSearch<TNumber>::getResult() const {
+    lli index = SearchAlgorithmBase<TNumber>::getNumberArraySize() - 1;
+    const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
+
+    return _recursiveGetResult(index, array, SearchResult<TNumber>(nullptr, nullptr, -1, -1));
+}
+
+
+template<class TNumber>
+TNumber* RecursiveSingleSearch<TNumber>::_recursiveGetMax(lli& index, const TNumber* array, TNumber* result) const {
     if (result == nullptr || *result < array[index]) {
         delete result;
         result = new TNumber(array[index]);
@@ -54,7 +63,7 @@ TNumber* RecursiveSingleSearch<TNumber>::_recursiveGetMax(lli& index, const TNum
 }
 
 template<class TNumber>
-TNumber* RecursiveSingleSearch<TNumber>::_recursiveGetMin(lli& index, const TNumber* array, TNumber* result) {
+TNumber* RecursiveSingleSearch<TNumber>::_recursiveGetMin(lli& index, const TNumber* array, TNumber* result) const {
     if (result == nullptr || *result > array[index]) {
         delete result;
         result = new TNumber(array[index]);
@@ -68,7 +77,7 @@ TNumber* RecursiveSingleSearch<TNumber>::_recursiveGetMin(lli& index, const TNum
 }
 
 template<class TNumber>
-lli RecursiveSingleSearch<TNumber>::_recursiveGetMaxPosition(lli& index, const TNumber* array, TNumber* value, lli result) {
+lli RecursiveSingleSearch<TNumber>::_recursiveGetMaxPosition(lli& index, const TNumber* array, TNumber* value, lli result) const {
     if (value == nullptr || *value < array[index]) {
         delete value;
         value = new TNumber(array[index]);
@@ -84,7 +93,7 @@ lli RecursiveSingleSearch<TNumber>::_recursiveGetMaxPosition(lli& index, const T
 }
 
 template<class TNumber>
-lli RecursiveSingleSearch<TNumber>::_recursiveGetMinPosition(lli& index, const TNumber* array, TNumber* value, lli result) {
+lli RecursiveSingleSearch<TNumber>::_recursiveGetMinPosition(lli& index, const TNumber* array, TNumber* value, lli result) const {
     if (value == nullptr || *value > array[index]) {
         delete value;
         value = new TNumber(array[index]);
@@ -99,7 +108,32 @@ lli RecursiveSingleSearch<TNumber>::_recursiveGetMinPosition(lli& index, const T
     }
 }
 
+template<class TNumber>
+SearchResult<TNumber> RecursiveSingleSearch<TNumber>::_recursiveGetResult(lli &index, const TNumber *array,
+        SearchResult<TNumber> searchResult) const {
 
+    TNumber* minValue = searchResult.getMinValue() == nullptr ? nullptr : new TNumber(*searchResult.getMinValue());
+    TNumber* maxValue = searchResult.getMaxValue() == nullptr ? nullptr : new TNumber(*searchResult.getMaxValue());
+
+    lli minValuePosition = searchResult.getMinPosition();
+    lli maxValuePosition = searchResult.getMaxPosition();
+
+    if (minValue == nullptr || *minValue > array[index]) {
+        minValuePosition = index;
+        searchResult = SearchResult<TNumber>(maxValue, minValue, maxValuePosition, minValuePosition);
+    }
+
+    if (maxValue == nullptr || *maxValue < array[index]) {
+        maxValuePosition = index;
+        searchResult = SearchResult<TNumber>(maxValue, minValue, maxValuePosition, minValuePosition);
+    }
+
+    if (index == 0) {
+        return searchResult;
+    } else {
+        return _recursiveGetResult(--index, array, searchResult);
+    }
+}
 
 template class RecursiveSingleSearch<float>;
 template class RecursiveSingleSearch<int>;

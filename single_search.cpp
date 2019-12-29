@@ -8,7 +8,7 @@ template<class TNumber>
 SingleSearch<TNumber>::SingleSearch(const TNumber *array, const uli size): SearchAlgorithmBase<TNumber>(array, size) {}
 
 template<class TNumber>
-TNumber* SingleSearch<TNumber>::getMax() {
+TNumber* SingleSearch<TNumber>::getMax() const {
     TNumber* result = nullptr;
     const uli size = SearchAlgorithmBase<TNumber>::getNumberArraySize();
 
@@ -27,7 +27,7 @@ TNumber* SingleSearch<TNumber>::getMax() {
 }
 
 template<class TNumber>
-TNumber* SingleSearch<TNumber>::getMin() {
+TNumber* SingleSearch<TNumber>::getMin() const {
     TNumber* result = nullptr;
     const uli size = SearchAlgorithmBase<TNumber>::getNumberArraySize();
 
@@ -46,7 +46,7 @@ TNumber* SingleSearch<TNumber>::getMin() {
 }
 
 template<class TNumber>
-lli SingleSearch<TNumber>::getMaxPosition() {
+lli SingleSearch<TNumber>::getMaxPosition() const {
     const uli size = SearchAlgorithmBase<TNumber>::getNumberArraySize();
     TNumber* minValue = nullptr;
     uli maxValuePosition = -1;
@@ -67,7 +67,7 @@ lli SingleSearch<TNumber>::getMaxPosition() {
 }
 
 template<class TNumber>
-lli SingleSearch<TNumber>::getMinPosition() {
+lli SingleSearch<TNumber>::getMinPosition() const {
     const uli size = SearchAlgorithmBase<TNumber>::getNumberArraySize();
     TNumber* minValue = nullptr;
     uli minValuePosition = -1;
@@ -85,6 +85,35 @@ lli SingleSearch<TNumber>::getMinPosition() {
     }
     delete minValue;
     return minValuePosition;
+}
+
+template<class TNumber>
+SearchResult<TNumber> SingleSearch<TNumber>::getResult() const {
+    const uli size = SearchAlgorithmBase<TNumber>::getNumberArraySize();
+    TNumber* maxValue = nullptr;
+    TNumber* minValue = nullptr;
+    uli maxValuePosition = -1;
+    uli minValuePosition = -1;
+
+    if (size == 0) {
+        return SearchResult<TNumber>(maxValue, maxValue, maxValuePosition, minValuePosition);
+    }
+
+    const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
+    for (uli i = 0; i < size; i++) {
+        if (minValue == nullptr || array[i] < *minValue) {
+            delete minValue;
+            minValue = new TNumber(array[i]);
+            minValuePosition = i;
+        }
+
+        if (maxValue == nullptr || array[i] > *maxValue) {
+            delete maxValue;
+            maxValue = new TNumber(array[i]);
+            maxValuePosition = i;
+        }
+    }
+    return SearchResult<TNumber>(maxValue, minValue, maxValuePosition, minValuePosition);
 }
 
 template class SingleSearch<float>;

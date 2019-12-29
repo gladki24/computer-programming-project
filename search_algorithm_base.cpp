@@ -10,12 +10,12 @@ SearchAlgorithmBase<TNumber>::SearchAlgorithmBase(const TNumber* numberArray, ul
 { }
 
 template<class TNumber>
-const TNumber* SearchAlgorithmBase<TNumber>::getNumberArray() {
+const TNumber* SearchAlgorithmBase<TNumber>::getNumberArray() const  {
     return _numberArray;
 }
 
 template<class TNumber>
-const uli SearchAlgorithmBase<TNumber>::getNumberArraySize() {
+const uli SearchAlgorithmBase<TNumber>::getNumberArraySize() const {
     return _size;
 }
 

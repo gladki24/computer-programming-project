@@ -3,32 +3,41 @@
 //
 
 #ifndef PROJEKT_22_SHARED_H
+
+
+#include "utils.h"
 #include <list>
+#include <iostream>
+
 #define PROJEKT_22_SHARED_H
 
 template<class TNumber>
 class SearchResult {
 public:
     SearchResult() = delete;
-    SearchResult& operator=(const SearchResult&) = delete;
-    SearchResult(const SearchResult&) = delete;
+    SearchResult& operator=(const SearchResult&);
+    SearchResult(const SearchResult&);
     SearchResult(
-            const int &maxValue,
-            const int &minValue,
-            const std::list<int> &maxPositionsList,
-            const std::list<int> &minPositionsList
+            TNumber* maxValue,
+            TNumber* minValue,
+            lli maxPosition,
+            lli minPosition
     );
+    ~SearchResult();
 
-    const TNumber& getMaxValue() const;
-    const TNumber& getMinValue() const;
-    const std::list<int>& getMaxPositionsList() const;
-    const std::list<int>& getMinPositionsList() const;
+    const TNumber* getMaxValue() const;
+    const TNumber* getMinValue() const;
+    lli getMaxPosition() const;
+    lli getMinPosition() const;
+
+    template<class TN>
+    friend std::ostream& operator<<(std::ostream& ostream, const SearchResult<TN>& searchResult);
 
 private:
-    TNumber _maxValue;
-    TNumber _minValue;
-    std::list<int> _maxPositionsList;
-    std::list<int> _minPositionsList;
+    TNumber* _maxValue;
+    TNumber* _minValue;
+    lli _maxPosition;
+    lli _minPosition;
 };
 
 #endif //PROJEKT_22_SHARED_H
