@@ -41,6 +41,10 @@ lli RecursiveSingleSearch<TNumber>::getMinPosition() const {
 
 template<class TNumber>
 SearchResult<TNumber> RecursiveSingleSearch<TNumber>::getResult() const {
+    if (SearchAlgorithmBase<TNumber>::getNumberArraySize() == 0) {
+        return SearchResult<TNumber>();
+    }
+
     lli index = SearchAlgorithmBase<TNumber>::getNumberArraySize() - 1;
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
 

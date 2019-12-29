@@ -96,7 +96,7 @@ SearchResult<TNumber> SingleSearch<TNumber>::getResult() const {
     uli minValuePosition = -1;
 
     if (size == 0) {
-        return SearchResult<TNumber>(maxValue, maxValue, maxValuePosition, minValuePosition);
+        return SearchResult<TNumber>();
     }
 
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();

@@ -7,7 +7,6 @@
 #include "search_algorithm_base.h"
 #include "search_result.h"
 #include "single_search.h"
-#include "iteration_search.h"
 #include "pair_search.h"
 #include "recursive_single_search.h"
 
