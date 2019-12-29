@@ -5,7 +5,7 @@
 #include "recursive_single_search.h"
 
 template<class TNumber>
-RecursiveSingleSearch<TNumber>::RecursiveSingleSearch(const TNumber *array, uli size): SearchAlgorithmBase<TNumber>(array, size) {}
+RecursiveSingleSearch<TNumber>::RecursiveSingleSearch(const TNumber* array, uli size): SearchAlgorithmBase<TNumber>(array, size) {}
 
 template<class TNumber>
 TNumber* RecursiveSingleSearch<TNumber>::getMax() const {
@@ -48,7 +48,7 @@ SearchResult<TNumber> RecursiveSingleSearch<TNumber>::getResult() const {
     lli index = SearchAlgorithmBase<TNumber>::getNumberArraySize() - 1;
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
 
-    return _recursiveGetResult(index, array, SearchResult<TNumber>(nullptr, nullptr, -1, -1));
+    return _recursiveGetResult(index, array, SearchResult<TNumber>());
 }
 
 
@@ -115,7 +115,6 @@ lli RecursiveSingleSearch<TNumber>::_recursiveGetMinPosition(lli& index, const T
 template<class TNumber>
 SearchResult<TNumber> RecursiveSingleSearch<TNumber>::_recursiveGetResult(lli &index, const TNumber *array,
         SearchResult<TNumber> searchResult) const {
-
     TNumber* minValue = searchResult.getMinValue() == nullptr ? nullptr : new TNumber(*searchResult.getMinValue());
     TNumber* maxValue = searchResult.getMaxValue() == nullptr ? nullptr : new TNumber(*searchResult.getMaxValue());
 

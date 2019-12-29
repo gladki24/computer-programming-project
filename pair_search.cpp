@@ -21,7 +21,7 @@ SearchResult<TNumber> PairSearch<TNumber>::getResult() const {
     const TNumber* array = SearchAlgorithmBase<TNumber>::getNumberArray();
     for (uli i = 0; i < size; i += 2) {
         uli nextIndex = i + 1 >= size ? i : i + 1;
-        if (array[i] > array[i + 1]) {
+        if (array[i] > array[nextIndex]) {
             if (maxValue == nullptr || array[i] > *maxValue) {
                 delete maxValue;
                 maxValuePosition = i;
@@ -29,13 +29,13 @@ SearchResult<TNumber> PairSearch<TNumber>::getResult() const {
             }
             if (minValue == nullptr || array[nextIndex] < *minValue) {
                 delete minValue;
-                minValuePosition = i + 1;
+                minValuePosition = nextIndex;
                 minValue = new TNumber(array[nextIndex]);
             }
         } else {
             if (maxValue == nullptr || array[nextIndex] > *maxValue) {
                 delete maxValue;
-                maxValuePosition = i + 1;
+                maxValuePosition = nextIndex;
                 maxValue = new TNumber(array[i]);
             }
             if (minValue == nullptr || array[i] < *minValue) {

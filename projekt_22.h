@@ -9,6 +9,8 @@
 #include "single_search.h"
 #include "pair_search.h"
 #include "recursive_single_search.h"
+#include "recursive_pair_search.h"
+#include "execution_timer.h"
 
 #define PROJEKT_22_PROJEKT_22_H
 

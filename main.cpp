@@ -2,11 +2,11 @@
 #include <time.h>
 #include "projekt_22.h"
 #include "projekt_22_tests.h"
-#include "execution_timer.h"
 
 using namespace project22;
 
 const int ARRAY_SIZE = 1000;
+const int TIMER_SIZE = 10000;
 
 int main() {
     srand(time(nullptr));
@@ -36,18 +36,26 @@ int main() {
     testGetResult<int>(&pairSearch);
 
     printTestHeader("Przegladanie kolejnych elementow parami rekurencyjnie");
+    int sizeD = ARRAY_SIZE;
+    int* arrayD = generateArray<int>(sizeD);
+    RecursivePairSearch<int> recursivePairSearch = RecursivePairSearch<int>(arrayD, sizeD);
+
+    comparePositionAndValue<int>(arrayD, &recursivePairSearch);
+    testBorderValues<int>(arrayD, &recursivePairSearch);
+    testGetResult<int>(&recursivePairSearch);
 
     printTestHeader("Mierzenie czasów wykonania");
-    int timerSize = 10000;
-    double* timerArray = generateArray<double>(timerSize);
+    double* timerArray = generateArray<double>(TIMER_SIZE);
 
-    SingleSearch<double> singleSearchTimer = SingleSearch<double>(timerArray, timerSize);
-    PairSearch<double> pairSearchTimer = PairSearch<double>(timerArray, timerSize);
-    RecursiveSingleSearch<double> recursiveSingleSearchTimer = RecursiveSingleSearch<double>(timerArray, timerSize);
+    SingleSearch<double> singleSearchTimer = SingleSearch<double>(timerArray, TIMER_SIZE);
+    PairSearch<double> pairSearchTimer = PairSearch<double>(timerArray, TIMER_SIZE);
+    RecursiveSingleSearch<double> recursiveSingleSearchTimer = RecursiveSingleSearch<double>(timerArray, TIMER_SIZE);
+    RecursivePairSearch<double> recursivePairSearchTimer = RecursivePairSearch<double>(timerArray, TIMER_SIZE);
 
     ExecutionTimer<double> sst = ExecutionTimer<double>(&singleSearchTimer);
     ExecutionTimer<double> rsst = ExecutionTimer<double>(&recursiveSingleSearchTimer);
     ExecutionTimer<double> pst = ExecutionTimer<double>(&pairSearchTimer);
+    ExecutionTimer<double> rpst = ExecutionTimer<double>(&recursivePairSearchTimer);
 
     std::cout << "Pojedynczo iteracyjnie: " << sst.getExecutionTime() << std::endl;
     std::cout << "Wynik: " << singleSearchTimer.getResult() << std::endl;
@@ -58,8 +66,8 @@ int main() {
     std::cout << "Parami iteracyjnie: " << pst.getExecutionTime() << std::endl;
     std::cout << "Wynik: " << pairSearchTimer.getResult() << std::endl;
 
-    std::cout << "Parami rekurencyjnie: " << std::endl;
-    std::cout << "Wynik: " << std::endl;
+    std::cout << "Parami rekurencyjnie: " << rpst.getExecutionTime() << std::endl;
+    std::cout << "Wynik: " << recursivePairSearchTimer.getResult() << std::endl;
 
     delete[] arrayA;
     delete[] arrayB;
