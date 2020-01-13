@@ -5,8 +5,8 @@
 
 using namespace project22;
 
-const int ARRAY_SIZE = 1000;
-const int TIMER_SIZE = 10000;
+const int ARRAY_SIZE = 8000;
+const int TIMER_SIZE = 8000;
 
 int main() {
     srand(time(nullptr));
@@ -72,5 +72,8 @@ int main() {
     delete[] arrayA;
     delete[] arrayB;
     delete[] arrayC;
+    delete[] arrayD;
+    delete[] timerArray;
+
     return 0;
 }

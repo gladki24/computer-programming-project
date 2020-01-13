@@ -23,8 +23,16 @@ SearchResult<TNumber> RecursivePairSearch<TNumber>::getResult() const {
 template<class TNumber>
 SearchResult<TNumber> RecursivePairSearch<TNumber>::_getRecursiveResult(lli& index, const TNumber* array,
         SearchResult<TNumber> searchResult) const {
-    TNumber* minValue = searchResult.getMinValue() == nullptr ? nullptr : new TNumber(*searchResult.getMinValue());
-    TNumber* maxValue = searchResult.getMaxValue() == nullptr ? nullptr : new TNumber(*searchResult.getMaxValue());
+    TNumber* minValue = nullptr;
+    TNumber* maxValue = nullptr;
+
+    if (searchResult.getMinValue() != nullptr) {
+        minValue = new TNumber(*searchResult.getMinValue());
+    }
+
+    if (searchResult.getMaxValue() != nullptr) {
+        maxValue = new TNumber(*searchResult.getMaxValue());
+    }
 
     lli minValuePosition = searchResult.getMinPosition();
     lli maxValuePosition = searchResult.getMaxPosition();
